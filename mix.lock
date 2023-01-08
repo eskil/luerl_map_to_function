@@ -1,0 +1,3 @@
+%{
+  "luerl": {:git, "https://github.com/rvirding/luerl.git", "5e61c1838d08430af67fb870995b05a41d64aeee", []},
+}

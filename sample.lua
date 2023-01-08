@@ -1,6 +1,7 @@
 function get_map()
    map = {}
-   map["function"] = increment
+   map["increment"] = increment
+   return map
 end
 
 -- Every time we call this, increment the number so
@@ -14,6 +15,7 @@ end
 -- Call once first just to validate
 increment()
 -- Call via map to validate that
-f = get_map()["function"]
+m = get_map()
+f = m["increment"]
 f()
-print("Number is "..number)
+print("lua: number is "..number)
