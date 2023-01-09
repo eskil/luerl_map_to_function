@@ -1,4 +1,5 @@
-function get_map()
+-- Gets a function table
+function get_function_table()
    map = {}
    map["increment"] = increment
    return map
@@ -15,7 +16,7 @@ end
 -- Call once first just to validate
 increment()
 -- Call via map to validate that
-m = get_map()
+m = get_function_table()
 f = m["increment"]
 f()
-print("lua: number is "..number)
+print("lua: number is "..number.. " (should be 2)")

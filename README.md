@@ -1,21 +1,58 @@
 # LuerlMapToFunction
 
-**TODO: Add description**
+This example demonstrates an issue with calling functions returned in a table.
 
-## Installation
+For instance, if you want to get a function table;
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `luerl_map_to_function` to your list of dependencies in `mix.exs`:
+```lua
+function get_functions()
+  table = {}
+  table["action"] = do_a
+end
 
-```elixir
-def deps do
-  [
-    {:luerl_map_to_function, "~> 0.1.0"}
-  ]
+state = 0
+function do_a()
+  state = state + 1
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/luerl_map_to_function>.
+Obtaining the map and calling `action` (aka `do_a`) from luerl does
+not provide an obvious way to pass in & update lua_state.
 
+### Build and run
+
+```
+mix deps.get
+mix deps.compile
+mix escript.build
+./luerl_map_to_function
+```
+
+The output (ignoring the `Function.info` output) is;
+
+```
+./luerl_map_to_function
+lua: number is 2 (should be 2)
+elixir number = 3 (should be 3)
+function #Function<6.93491019/1 in :luerl.decode/3>
+function info [
+    pid: #PID<0.99.0>,
+  module: :luerl,
+  new_index: 6,
+  new_uniq: <<51, 204, 154, 21, 95, 68, 126, 176, 146, 163, 10, 159, 121, 165,
+    177, 253>>,
+  index: 6,
+  uniq: 93491019,
+  name: :"-decode/3-fun-0-",
+  arity: 1,
+  env: [... lua state at capture time it seems..]
+  type: :local
+]
+elixir number = 4 (should be 4)
+elixir number = 4 (should be 5)
+```
+
+The two last calls are from elixir to lua via the bound function. It
+does use the right initial state (3) in the first call, but since the
+lua state isn't passed in, it's not updated and the next call still
+sees the first state.

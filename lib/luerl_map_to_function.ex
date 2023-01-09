@@ -11,8 +11,8 @@ defmodule LuerlMapToFunction do
     {[number], lua_state} = :luerl.call_function([:increment], [], lua_state)
     IO.puts("elixir number = #{number} (should be 3)")
 
-    # Get map and get the reference to the increment function
-    {[lua_map], lua_state} = :luerl.call_function([:get_map], [], lua_state)
+    # Get function table and get the reference to the increment function
+    {[lua_map], _lua_state} = :luerl.call_function([:get_function_table], [], lua_state)
     ex_map = Map.new(lua_map)
     function = ex_map["increment"]
     IO.puts("function #{inspect function}")
@@ -25,5 +25,5 @@ defmodule LuerlMapToFunction do
     # Call the function
     [number] = function.([])
     IO.puts("elixir number = #{number} (should be 5)")
-end
+  end
 end

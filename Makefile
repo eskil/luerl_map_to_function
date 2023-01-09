@@ -4,7 +4,7 @@ all:
 	mix escript.build
 
 run:
-	iex -S mix
+	./luerl_map_to_function
 
 clean:
 	mix deps.clean --all
