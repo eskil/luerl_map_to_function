@@ -19,6 +19,15 @@ end
 Obtaining the map and calling `action` (aka `do_a`) from luerl does
 not provide an obvious way to pass in & update lua_state.
 
+To get the table;
+
+```elixir
+{[lua_map], _lua_state} = :luerl.call_function([:get_function_table], [], lua_state)
+ex_map = Map.new(lua_map)
+function = ex_map["increment"]
+[number] = function.([]) # How can the state be threaded through?
+```
+
 ### Build and run
 
 ```
