@@ -5,14 +5,15 @@ This example demonstrates an issue with calling functions returned in a table.
 For instance, if you want to get a function table;
 
 ```lua
-function get_functions()
+function get_function_table()
   table = {}
-  table["action"] = do_a
+  table["increment"] = increment
 end
 
 state = 0
-function do_a()
+function increment()
   state = state + 1
+  return state
 end
 ```
 
