@@ -8,7 +8,7 @@ defmodule LuerlMapToFunction do
     {_, lua_state} = :luerl.do(chunk, lua_state)
 
     # Call increment directly
-    {[number], lua_state} = :luerl.call_function([:increment], [], lua_state)
+    {[number], lua_state} = :luerl.call_function([:do_increment], [], lua_state)
     IO.puts("elixir number = #{number} (should be 3)")
 
     # Get function table and get the reference to the increment function

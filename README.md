@@ -7,17 +7,17 @@ For instance, if you want to get a function table;
 ```lua
 function get_function_table()
   table = {}
-  table["increment"] = increment
+  table["increment"] = do_increment
 end
 
 state = 0
-function increment()
+function do_increment()
   state = state + 1
   return state
 end
 ```
 
-Obtaining the map and calling `action` (aka `do_a`) from luerl does
+Obtaining the map and calling `increment` (aka `do_increment`) from luerl does
 not provide an obvious way to pass in & update lua_state.
 
 To get the table;
